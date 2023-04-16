@@ -22,10 +22,20 @@ function cleanUpData() {
 
 function App() {
   const animals = cleanUpData();
-  console.log(animals);
+  //Fitler time
+  const [filter, setFilter] = useState(" ");
+
+  let filteredAnimals = [...animals];
+  if (filter) {
+    filteredAnimals = filteredAnimals.filter((ani) => ani.type === filter);
+  }
   return (
     <div className="App">
       <h1>Mini animal base</h1>
+      <button onClick={() => setFilter("cat")}>Only Cats</button>
+      <button onClick={() => setFilter("dog")}>Only Dogs</button>
+      <button onClick={() => setFilter("")}>All</button>
+
       <table>
         <thead>
           <tr>
@@ -36,7 +46,7 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {animals.map((animal) => (
+          {filteredAnimals.map((animal) => (
             <tr>
               <td>{animal.name}</td>
               <td>{animal.trait}</td>
